@@ -9,7 +9,6 @@ namespace ProjectIndieFarm
 		public int YCell;
 
 		private PlantState m_state = PlantState.Seed;
-
         public PlantState State => m_state;
 		public void SetState(PlantState newState)
 		{
@@ -24,6 +23,8 @@ namespace ProjectIndieFarm
 					GetComponent<SpriteRenderer>().sprite = ResController.Instance.SmallPlantSprite;
 				else if(m_state == PlantState.Ripe)
                     GetComponent<SpriteRenderer>().sprite = ResController.Instance.RipeSprite;
+                else if (m_state == PlantState.Old)
+                    GetComponent<SpriteRenderer>().sprite = ResController.Instance.OldSprite;
 
                 //Í¬²½µ½SoilData
                 FindObjectOfType<GridController>().SoilGrids[XCell, YCell].PlantState = m_state;

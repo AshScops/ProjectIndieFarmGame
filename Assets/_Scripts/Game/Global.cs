@@ -9,7 +9,10 @@ namespace ProjectIndieFarm
         /// </summary>
         public static BindableProperty<int> Days = new BindableProperty<int>(1);
 
-
+        /// <summary>
+        /// 收获数目
+        /// </summary>
+        public static BindableProperty<int> FruitCnt = new BindableProperty<int>(0);
 
 
     }

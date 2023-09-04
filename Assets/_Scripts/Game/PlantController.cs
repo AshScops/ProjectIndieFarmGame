@@ -7,7 +7,8 @@ namespace ProjectIndieFarm
 	{
 		Seed = 0,
 		Small,
-		Ripe
+		Ripe,
+		Old
 	}
 
 	public partial class PlantController : ViewController, ISingleton

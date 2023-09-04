@@ -102,6 +102,17 @@ namespace ProjectIndieFarm
 
                     virtualGrid[cellPos.x, cellPos.y].HasPlant = true;
                 }
+                else
+                {
+                    //收获
+                    if(virtualGrid[cellPos.x, cellPos.y].PlantState == PlantState.Ripe)
+                    {
+                        //PlantController.Instance.Plants[cellPos.x, cellPos.y].SetState(PlantState.Old);
+                        Destroy(PlantController.Instance.Plants[cellPos.x, cellPos.y].gameObject);
+                        virtualGrid[cellPos.x, cellPos.y].HasPlant = false;
+                        Global.FruitCnt.Value ++;
+                    }
+                }
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -136,6 +147,11 @@ namespace ProjectIndieFarm
                 Global.Days.Value++;
 
             }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneManager.LoadScene("GamePass");
+            }
         }
 
 
@@ -146,6 +162,31 @@ namespace ProjectIndieFarm
             GUILayout.BeginHorizontal();
             GUILayout.Space(10);
             GUILayout.Label("天数：" + Global.Days.Value);
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            GUILayout.Label("收获数目：" + Global.FruitCnt.Value);
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            GUILayout.Label("浇水：E");
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            GUILayout.Label("下一天：F");
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            GUILayout.Label("开垦、浇水、收获：鼠标左键");
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            GUILayout.Label("移除：鼠标右键");
             GUILayout.EndHorizontal();
         }
     }
