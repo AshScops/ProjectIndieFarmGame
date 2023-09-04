@@ -16,51 +16,20 @@ namespace ProjectIndieFarm
             Global.Days.Register((day) =>
             {
                 var gridController = FindObjectOfType<GridController>();
-                var virtualGrid = gridController.ShowGrid;
+                var virtualGrid = gridController.SoilGrids;
 
-                //
-                var smallPlants = SceneManager.GetActiveScene()
-                    .GetRootGameObjects()
-                    .Where((gameObj) =>
-                    {
-                        return gameObj.name.StartsWith("SmallPlant");
-                    });
-
-                foreach (var smallPlant in smallPlants)
+                PlantController.Instance.Plants.ForEach((x, y, plant) =>
                 {
-                    var cellPos = Grid.WorldToCell(smallPlant.transform.position);
-                    var cellData = virtualGrid[cellPos.x, cellPos.y];
-                    if (cellData != null && cellData.Watered)
+                    if(plant is not null)
                     {
-                        ResController.Instance.RipePrefab
-                            .Instantiate()
-                            .Position(smallPlant.transform.position);
-
-                        smallPlant.DestroySelf();
+                        var cellData = virtualGrid[x, y];
+                        if (cellData is not null && cellData.Watered && plant.State != PlantState.Ripe)
+                        {
+                            plant.SetState(plant.State+1);
+                            Debug.Log("plant.State" + plant.State);
+                        }
                     }
-                }
-
-                //
-                var seeds = SceneManager.GetActiveScene()
-                    .GetRootGameObjects()
-                    .Where((gameObj) =>
-                    {
-                        return gameObj.name.StartsWith("Seed");
-                    });
-
-                foreach (var seed in seeds)
-                {
-                    var cellPos = Grid.WorldToCell(seed.transform.position);
-                    var cellData = virtualGrid[cellPos.x, cellPos.y];
-                    if (cellData != null && cellData.Watered)
-                    {
-                        ResController.Instance.SmallPlantPrefab
-                            .Instantiate()
-                            .Position(seed.transform.position);
-
-                        seed.DestroySelf();
-                    }
-                }
+                });
 
                 //水
                 var waters = SceneManager.GetActiveScene()
@@ -74,7 +43,6 @@ namespace ProjectIndieFarm
                 {
                     water.DestroySelf();
                 }
-
 
                 virtualGrid.ForEach((x, y, data) =>
                 {
@@ -108,7 +76,7 @@ namespace ProjectIndieFarm
 
             //替换对应块
             var gridController = FindObjectOfType<GridController>();
-            var virtualGrid = gridController.ShowGrid;
+            var virtualGrid = gridController.SoilGrids;
 
             if (Input.GetMouseButtonDown(0))
 			{
@@ -123,21 +91,22 @@ namespace ProjectIndieFarm
                 else if (!virtualGrid[cellPos.x, cellPos.y].HasPlant)
                 {
                     //种植
-                    ResController.Instance.SeedPrefab
+                    var plantGameObj = ResController.Instance.PlantPrefab
                         .Instantiate()
                         .Position(tileWorldPos);
 
-                    virtualGrid[cellPos.x, cellPos.y].HasPlant = true;
-                }
-                else
-                {
+                    var plant = plantGameObj.GetComponent<Plant>();
+                    plant.XCell = cellPos.x;
+                    plant.YCell = cellPos.y;
+                    PlantController.Instance.Plants[cellPos.x, cellPos.y] = plant;
 
+                    virtualGrid[cellPos.x, cellPos.y].HasPlant = true;
                 }
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                if (virtualGrid[cellPos.x, cellPos.y] != null)
+                if (virtualGrid[cellPos.x, cellPos.y] is not null)
                 {
                     virtualGrid[cellPos.x, cellPos.y] = null;
                     Tilemap.SetTile(cellPos, null);

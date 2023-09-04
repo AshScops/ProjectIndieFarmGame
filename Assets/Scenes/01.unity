@@ -543,6 +543,10 @@ MonoBehaviour:
   WaterPrefab: {fileID: 4377191536842665764, guid: 26d6048d55fe374449cf818d6c3b2aff, type: 3}
   SmallPlantPrefab: {fileID: 8466583503052531854, guid: 5bc9541802e2e1b4eb2092fa43e0e0ab, type: 3}
   RipePrefab: {fileID: 2060111679706503904, guid: ca848cb4e9d30a24fa29f31e7c48296f, type: 3}
+  PlantPrefab: {fileID: 8466583503052531854, guid: 881b65352c42c554f96b34d0651e1223, type: 3}
+  SeedSprite: {fileID: -7866928900747384746, guid: 690c4acc206b3f9409080d3fe071760d, type: 3}
+  SmallPlantSprite: {fileID: -8902951029311973782, guid: 04d9c73ff6b12d045bc77d05627b4adc, type: 3}
+  RipeSprite: {fileID: 853675080466277832, guid: 0bfe3b0d3c2a29e4fa8937a71f5d7294, type: 3}
 --- !u!4 &547860070
 Transform:
   m_ObjectHideFlags: 0
@@ -931,6 +935,55 @@ MonoBehaviour:
   PrefabFolder: Assets/Art/Prefab
   Grid: {fileID: 208208504}
   Tilemap: {fileID: 295467684}
+--- !u!1 &676650784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 676650785}
+  - component: {fileID: 676650786}
+  m_Layer: 0
+  m_Name: PlantController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &676650785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676650784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &676650786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676650784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828e3a8613a7f5343b1a666d5a60c486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Namespace: ProjectIndieFarm
+  ScriptName: PlantController
+  ScriptsFolder: Assets/_Scripts/Game
+  GeneratePrefab: 0
+  PrefabFolder: Assets/Art/Prefab
 --- !u!1 &2081242253
 GameObject:
   m_ObjectHideFlags: 0

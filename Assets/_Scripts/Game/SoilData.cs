@@ -1,14 +1,11 @@
-public class SoilData
-{
-    public bool HasPlant;
-    public bool Watered;
+namespace ProjectIndieFarm
+{ 
+    public class SoilData
+    {
+        public bool HasPlant;
+        public bool Watered;
 
-    public PlantState PlantState;
-}
+        public PlantState PlantState = PlantState.Seed;
+    }
 
-public enum PlantState
-{
-    seed = 0,
-    smallPlant,
-    ripe
 }

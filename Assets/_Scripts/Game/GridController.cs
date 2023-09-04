@@ -6,17 +6,17 @@ namespace ProjectIndieFarm
 {
 	public partial class GridController : ViewController
 	{
-        private EasyGrid<SoilData> m_showGrid = new EasyGrid<SoilData>(10, 10);
-        public EasyGrid<SoilData> ShowGrid => m_showGrid;
+        private EasyGrid<SoilData> m_soilGrids = new EasyGrid<SoilData>(10, 10);
+        public EasyGrid<SoilData> SoilGrids => m_soilGrids;
         public TileBase Pen;
 
         void Start()
 		{
-            m_showGrid[0, 0] = new SoilData();
-            m_showGrid[2, 2] = new SoilData();
+            m_soilGrids[0, 0] = new SoilData();
+            m_soilGrids[2, 2] = new SoilData();
 
 
-            m_showGrid.ForEach((x, y, data) =>
+            m_soilGrids.ForEach((x, y, data) =>
             {
                 if(data != null)
                     Tilemap.SetTile(new Vector3Int(x, y), Pen);
@@ -27,7 +27,7 @@ namespace ProjectIndieFarm
         {
             var grid = FindObjectOfType<Grid>();
 
-            m_showGrid.ForEach((x, y, _) =>
+            m_soilGrids.ForEach((x, y, _) =>
             {
                 var tileWorldPos = grid.CellToWorld(new Vector3Int(x, y, 0));
                 var leftBottomPos = tileWorldPos;
