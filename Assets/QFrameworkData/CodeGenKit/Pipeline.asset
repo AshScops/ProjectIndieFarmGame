@@ -18,16 +18,12 @@ MonoBehaviour:
     GameObject: {fileID: 0}
     From: 0
     NameToFullName: []
-    BindInfos:
-    - TypeName: UnityEngine.Tilemaps.Tilemap
-      PathToRoot: Tilemap
-      MemberName: Tilemap
+    BindInfos: []
     ScriptsFolder: Assets/_Scripts/Game
-    ClassName: GridController
+    ClassName: TileSelectController
     Namespace: ProjectIndieFarm
     MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\nnamespace ProjectIndieFarm\r\n{\r\n\tpublic
-      partial class GridController : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
+      partial class TileSelectController : ViewController\r\n\t{\r\n\t\tvoid Start()\r\n\t\t{\r\n\t\t\t//
       Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
-    DesignerCode: "// Generate Id:59aa36e8-cc86-48aa-a217-02d9e17e99d3\r\nusing UnityEngine;\r\n\r\nnamespace
-      ProjectIndieFarm\r\n{\r\n\tpublic partial class GridController\r\n\t{\r\n\r\n\t\tpublic
-      UnityEngine.Tilemaps.Tilemap Tilemap;\r\n\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:d627d8f0-825e-4c61-8175-a42588f86bb2\r\nusing UnityEngine;\r\n\r\nnamespace
+      ProjectIndieFarm\r\n{\r\n\tpublic partial class TileSelectController\r\n\t{\r\n\r\n\t}\r\n}\r\n"
