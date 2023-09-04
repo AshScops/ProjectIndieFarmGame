@@ -1,6 +1,8 @@
 using UnityEngine;
 using QFramework;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace ProjectIndieFarm
 {
@@ -11,6 +13,34 @@ namespace ProjectIndieFarm
 
 		void Start()
 		{
+            Global.Days.Register((day) =>
+            {
+                var seeds = SceneManager.GetActiveScene()
+                    .GetRootGameObjects()
+                    .Where((gameObj) =>
+                    {
+                        return gameObj.name.StartsWith("Seed");
+                    });
+
+
+                var gridController = FindObjectOfType<GridController>();
+                var virtualGrid = gridController.ShowGrid;
+                foreach (var seed in seeds)
+                {
+                    var cellPos = Grid.WorldToCell(seed.transform.position);
+                    var cellData = virtualGrid[cellPos.x, cellPos.y];
+                    if (cellData != null && cellData.Watered)
+                    {
+                        ResController.Instance.SmallPlantPrefab
+                            .Instantiate()
+                            .Position(seed.transform.position);
+
+                        seed.DestroySelf();
+                    }
+                }
+
+            }).UnRegisterWhenGameObjectDestroyed(this);
+
 		}
 
 		private void Update()
@@ -69,7 +99,41 @@ namespace ProjectIndieFarm
                     Tilemap.SetTile(cellPos, null);
                 }
             }
+
+
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                //已开垦
+                if (virtualGrid[cellPos.x, cellPos.y] != null)
+                {
+                    if(!virtualGrid[cellPos.x, cellPos.y].Watered)
+                    {
+                        //浇水
+                        ResController.Instance.WaterPrefab
+                            .Instantiate()
+                            .Position(tileWorldPos);
+
+                        virtualGrid[cellPos.x, cellPos.y].Watered = true;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Global.Days.Value++;
+
+            }
         }
 
-	}
+
+        private void OnGUI()
+        {
+            IMGUIHelper.SetDesignResolution(640, 360);
+            GUILayout.Space(10);
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            GUILayout.Label("天数：" + Global.Days.Value);
+            GUILayout.EndHorizontal();
+        }
+    }
 }
