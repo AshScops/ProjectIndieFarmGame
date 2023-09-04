@@ -15,6 +15,32 @@ namespace ProjectIndieFarm
 		{
             Global.Days.Register((day) =>
             {
+                var gridController = FindObjectOfType<GridController>();
+                var virtualGrid = gridController.ShowGrid;
+
+                //
+                var smallPlants = SceneManager.GetActiveScene()
+                    .GetRootGameObjects()
+                    .Where((gameObj) =>
+                    {
+                        return gameObj.name.StartsWith("SmallPlant");
+                    });
+
+                foreach (var smallPlant in smallPlants)
+                {
+                    var cellPos = Grid.WorldToCell(smallPlant.transform.position);
+                    var cellData = virtualGrid[cellPos.x, cellPos.y];
+                    if (cellData != null && cellData.Watered)
+                    {
+                        ResController.Instance.RipePrefab
+                            .Instantiate()
+                            .Position(smallPlant.transform.position);
+
+                        smallPlant.DestroySelf();
+                    }
+                }
+
+                //
                 var seeds = SceneManager.GetActiveScene()
                     .GetRootGameObjects()
                     .Where((gameObj) =>
@@ -22,9 +48,6 @@ namespace ProjectIndieFarm
                         return gameObj.name.StartsWith("Seed");
                     });
 
-
-                var gridController = FindObjectOfType<GridController>();
-                var virtualGrid = gridController.ShowGrid;
                 foreach (var seed in seeds)
                 {
                     var cellPos = Grid.WorldToCell(seed.transform.position);
@@ -38,6 +61,27 @@ namespace ProjectIndieFarm
                         seed.DestroySelf();
                     }
                 }
+
+                //ˮ
+                var waters = SceneManager.GetActiveScene()
+                    .GetRootGameObjects()
+                    .Where((gameObj) =>
+                    {
+                        return gameObj.name.StartsWith("Water");
+                    });
+
+                foreach (var water in waters)
+                {
+                    water.DestroySelf();
+                }
+
+
+                virtualGrid.ForEach((x, y, data) =>
+                {
+                    if (data != null)
+                        data.Watered = false;
+                });
+
 
             }).UnRegisterWhenGameObjectDestroyed(this);
 
